@@ -1,0 +1,11 @@
+# Direct versions from the working CPU audit environment (Python 3.14).
+# Python >=3.12. CUDA builds/drivers and transitive packages remain platform-specific.
+# This is a development environment snapshot, not the original paper's environment.
+torch==2.12.1
+numpy==2.5.1
+pandas==3.0.3
+h3==4.5.0
+transformers==5.16.1
+matplotlib==3.11.0
+tqdm==4.68.4
+scikit-learn==1.9.0

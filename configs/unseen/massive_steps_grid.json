@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "name": "massive-steps-unseen-grid",
+  "data": {
+    "cities": [
+      "new_york",
+      "istanbul"
+    ],
+    "csv_template": "data/{city}/{city}_checkins.csv"
+  },
+  "unseen": {
+    "holdout_fraction": 0.2,
+    "h3_resolution": 9,
+    "split_seed": 42,
+    "train_user_fraction": 0.8,
+    "validation_user_fraction": 0.1,
+    "heldout_validation_fraction": 0.5,
+    "max_sequence_length": 128
+  },
+  "granularity": {
+    "num_bands": 32,
+    "rff_features": 2048,
+    "candidates": [
+      {
+        "id": "coarse",
+        "min_scale": 0.05,
+        "max_scale": 5.0
+      },
+      {
+        "id": "middle",
+        "min_scale": 0.1,
+        "max_scale": 10.0
+      },
+      {
+        "id": "mid2",
+        "min_scale": 0.5,
+        "max_scale": 50.0
+      },
+      {
+        "id": "fine",
+        "min_scale": 5.0,
+        "max_scale": 600.0
+      }
+    ]
+  },
+  "model": {
+    "encoder": "grid",
+    "d_model": 256,
+    "nhead": 2,
+    "num_layers": 1,
+    "dim_feedforward": 512,
+    "hidden_dim": 2048,
+    "num_layers_mlp": 3,
+    "dropout": 0.15,
+    "backbone_type": "qwen2"
+  },
+  "training": {
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "epochs": 30,
+    "batch_size": 64,
+    "eval_batch_size": 16,
+    "train_repeats": 10,
+    "lr": 0.0004,
+    "weight_decay": 0.01,
+    "temperature": 0.07,
+    "early_stopping_patience": 4,
+    "clip_grad_norm": 1.0,
+    "encoder_lr_mult": 1.0,
+    "head_lr_mult": 100.0,
+    "lr_step1_epochs": 10,
+    "lr_step2_epochs": 20,
+    "lr_step2_mult": 0.75,
+    "lr_step3_mult": 0.15,
+    "gpu_id": 0
+  },
+  "scoring": {
+    "heuristic_loss": false,
+    "heuristic_popularity": true,
+    "heuristic_alpha": 0.6,
+    "heuristic_beta": 0.95,
+    "heuristic_gamma": 1.5
+  },
+  "selection": {
+    "metric": "first_visit_unseen_model_r100",
+    "tie_policy": "expected_random"
+  }
+}

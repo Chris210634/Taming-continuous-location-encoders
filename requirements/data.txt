@@ -1,0 +1,4 @@
+# Additional dependencies for the public MASSIVE-STEPS download command.
+-r core.txt
+huggingface-hub==1.30.0
+pyarrow==25.0.1
